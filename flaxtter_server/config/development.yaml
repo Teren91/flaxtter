@@ -30,9 +30,9 @@ webServer:
 # This is the database setup for your server.
 database:
   host: localhost
-  port: 8090
-  name: flaxtter
-  user: postgres
+  port: 5432 #8090
+  name: Flextter
+  user: flextter
 
 # This is the setup for Redis.
 redis:
