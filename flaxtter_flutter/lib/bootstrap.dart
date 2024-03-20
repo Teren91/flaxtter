@@ -2,11 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flaxtter_client/flaxtter_client.dart';
+import 'package:flaxtter_flutter/dependecy_injection.dart';
 import 'package:flutter/widgets.dart';
-
-import 'package:serverpod_flutter/serverpod_flutter.dart';
-
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -29,10 +26,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  var client = Client('http://$localhost:8080/')
-    ..connectivityMonitor = FlutterConnectivityMonitor();
   Bloc.observer = const AppBlocObserver();
-
+  configureDependencies();
   // Add cross-flavor configuration here
 
   runApp(await builder());
