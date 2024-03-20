@@ -1,0 +1,19 @@
+{
+  "moduleName": "flaxtter",
+  "tables": [],
+  "installedModules": [
+    {
+      "module": "flaxtter",
+      "version": "20240316174332869"
+    },
+    {
+      "module": "serverpod",
+      "version": "20240115074235544"
+    },
+    {
+      "module": "serverpod_auth",
+      "version": "20240115074239642"
+    }
+  ],
+  "migrationApiVersion": 1
+}
