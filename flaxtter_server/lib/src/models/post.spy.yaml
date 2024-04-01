@@ -1,0 +1,12 @@
+### Information about the conexion to DB
+### Only works on server side
+class: Post
+table: post
+fields:
+    author: String
+    body: String
+    createdAt: DateTime
+
+indexes:
+    post_author_idx:
+        fields: author
