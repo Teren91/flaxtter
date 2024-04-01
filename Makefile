@@ -15,5 +15,5 @@ server:
 app_build:
 	cd flaxtter_flutter && dart run build_runner build --delete-conflicting-outputs
 
-run:
+app:
 	cd flaxtter_flutter && flutter run -d windows --target lib/main_development.dart
