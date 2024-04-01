@@ -1,5 +1,5 @@
+import 'package:flaxtter_flutter/feature/login/login.dart';
 import 'package:flaxtter_flutter/l10n/l10n.dart';
-import 'package:flaxtter_flutter/login/login.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatefulWidget {
