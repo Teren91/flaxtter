@@ -18,12 +18,10 @@ abstract class FlaxtterClientModule{
   // about the user.
   
   @lazySingleton
-  Future<SessionManager> get sessionManager async{
-    final sessionManager = SessionManager(
+  SessionManager get sessionManager {
+    return  SessionManager(
       caller: client.modules.auth,
     );
-    await sessionManager.initialize();
   
-    return sessionManager;
   }
 }

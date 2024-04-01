@@ -1,8 +1,6 @@
-import 'package:flaxtter_client/flaxtter_client.dart';
-import 'package:flaxtter_flutter/counter/counter.dart';
 import 'package:flaxtter_flutter/l10n/l10n.dart';
+import 'package:flaxtter_flutter/login/login.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -18,7 +16,7 @@ class _AppState extends State<App> {
   void initState(){
     super.initState();
 
-    final client = GetIt.I<Client>();
+    //final client = GetIt.I<Client>();
   }
 
 
@@ -33,7 +31,7 @@ class _AppState extends State<App> {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const LoginPage(),
     );
   }
 }

@@ -29,7 +29,7 @@ extension GetItInjectableX on _i1.GetIt {
     );
     final flaxtterClientModule = _$FlaxtterClientModule();
     gh.lazySingleton<_i3.Client>(() => flaxtterClientModule.client);
-    gh.lazySingletonAsync<_i4.SessionManager>(
+    gh.lazySingleton<_i4.SessionManager>(
         () => flaxtterClientModule.sessionManager);
     return this;
   }
