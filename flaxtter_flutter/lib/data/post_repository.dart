@@ -1,32 +1,34 @@
 
 import 'package:flaxtter_client/flaxtter_client.dart';
-
 import 'package:flaxtter_flutter/data/data.dart';
+import 'package:injectable/injectable.dart';
 
-class PostWrapper extends ModelWrapper
+class PostBindings extends ModelBindings<Post>
 {
-  PostWrapper(this.post);
-
-  final Post post;
+  const PostBindings();
 
   @override
-  int? get id => post.id;
+  int? getId(Post obj) => obj.id;
 
   @override
-  Map<String, Object?> toJson() => post.toJson();
+  Map<String, Object?> toJson(Post obj) => obj.toJson();
+
+  @override
+  Post fromJson(Map<String, Object?> json) => Post.fromJson(json, Protocol());
 }
 
-class PostRepository extends Repository<PostWrapper>
+@Singleton()
+class PostRepository extends Repository<Post>
 {
   PostRepository(this.client) : super(
-      fromJson: (json) => PostWrapper(Post.fromJson(json, Protocol())),
+     bindings: const PostBindings(),
     );
 
   final Client client;
 
   @override
-  Future<PostWrapper> persist(PostWrapper item) async {
-    return PostWrapper(await client.post.save(item.post));
+  Future<Post> persist(Post item) async {
+    return client.post.save(item);
   }
   
 }

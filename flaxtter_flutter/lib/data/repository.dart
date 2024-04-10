@@ -1,21 +1,26 @@
 
-abstract class ModelWrapper
+
+abstract class ModelBindings<T>
 {
-  int? get id;
-  Map<String, Object?> toJson();
+  const ModelBindings();
+  int? getId(T obj);
+  Map<String, Object?> toJson(T obj);
+
+  T fromJson(Map<String, Object?> json);
 }
 
 
-abstract class Repository <T extends ModelWrapper>
+abstract class Repository <T>
 {
-  Repository({required this.fromJson});
+  Repository({required this.bindings});
+
+  final ModelBindings<T> bindings;
   
-  final T Function(Map<String, Object?> json) fromJson;
   final _localCache = <int, T>{};
   
   Future<T> save(T item) async{
     final savedItem = await persist(item);
-    _localCache[savedItem.id!] = savedItem;
+    _localCache[bindings.getId(savedItem)!] = savedItem;
 
     return savedItem;
   }
