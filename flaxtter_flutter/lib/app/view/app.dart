@@ -1,6 +1,5 @@
-import 'package:flaxtter_flutter/feature/login/login.dart';
+import 'package:flaxtter_flutter/feature/timeline/pages/timeline_page.dart';
 import 'package:flaxtter_flutter/l10n/l10n.dart';
-import 'package:flaxtter_flutter/feature/timeline/timeline.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatefulWidget {
@@ -11,15 +10,11 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
   
   @override
   void initState(){
     super.initState();
-
-    //final client = GetIt.I<Client>();
   }
-
 
   @override
   Widget build(BuildContext context) {

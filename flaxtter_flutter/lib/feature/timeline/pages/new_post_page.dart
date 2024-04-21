@@ -3,6 +3,7 @@ import 'package:flaxtter_flutter/data/data.dart';
 import 'package:flaxtter_flutter/feature/timeline/bloc/new_post_bloc.dart';
 import 'package:flaxtter_flutter/feature/timeline/timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 class NewPostPage extends StatefulWidget {
@@ -13,47 +14,64 @@ class NewPostPage extends StatefulWidget {
 }
 
 class _NewPostPageState extends State<NewPostPage> {
-
   late final NewPostBloc bloc;
 
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
-    
     super.initState();
 
     bloc = NewPostBloc(
-      GetIt.I<PostRepository>(), 
+      GetIt.I<PostRepository>(),
       NewPostState.initial(),
     );
   }
 
   @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('New Post'),),
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget> [
-            TextField(controller: _controller,),
-          ],
+    return BlocListener(
+      bloc: bloc,
+      listener: (context, NewPostState state) {
+        if (state.item?.id != null) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('New Post'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => bloc.add(
-          SaveNewPostEvent(Post(
-            author: 'me',
-            body: _controller.text,
-            //TODO: It will be upgrade by postgress
-            createdAt: DateTime.now(),
-          ),
+        body: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              TextField(
+                controller: _controller,
+              ),
+            ],
           ),
         ),
-        child: const Icon(Icons.save),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => bloc.add(
+            SaveNewPostEvent(
+              Post(
+                author: 'me',
+                body: _controller.text,
+                // TODO(Teren91): It will be upgrade by postgress
+                createdAt: DateTime.now(),
+              ),
+            ),
+          ),
+          child: const Icon(Icons.save),
+        ),
       ),
     );
   }

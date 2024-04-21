@@ -15,6 +15,9 @@ class PostBindings extends ModelBindings<Post>
 
   @override
   Post fromJson(Map<String, Object?> json) => Post.fromJson(json, Protocol());
+  
+  @override
+  int sortDesc(Post a, Post b) => b.createdAt.compareTo(a.createdAt);
 }
 
 @Singleton()
@@ -29,6 +32,11 @@ class PostRepository extends Repository<Post>
   @override
   Future<Post> persist(Post item) async {
     return client.post.save(item);
+  }
+  
+  @override
+  Future<List<Post>> load() {
+    return client.post.list();
   }
   
 }
